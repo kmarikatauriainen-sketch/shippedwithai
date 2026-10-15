@@ -1,5 +1,5 @@
-# ShippedWithAI
-Static directory + newsletter of real AI-built micro-SaaS cases. Target domain: shippedwithai.com.
+# MRRwithAI
+Static directory + newsletter of real AI-built micro-SaaS cases. Target domain: mrrwithai.com.
 
 - Data: `data/cases.json` (one object per case; omit unsourced metrics), `categories.json`, `tools.json`, `newsletter.json` (archive: `{title,date,url}`).
 - Build: `node build.js` → `dist/` (zero dependencies). Vercel builds automatically on push.
