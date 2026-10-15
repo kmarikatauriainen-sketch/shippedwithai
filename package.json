@@ -1,1 +1,1 @@
-{"name":"shippedwithai","private":true,"scripts":{"build":"node build.js"}}
+{"name":"mrrwithai","private":true,"scripts":{"build":"node build.js"}}
