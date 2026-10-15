@@ -1,0 +1,13 @@
+name: Submit a case
+description: Submit a product built with AI tools that has public results
+title: "[Case] "
+labels: ["case-submission"]
+body:
+  - {type: input, id: name, attributes: {label: Product name}, validations: {required: true}}
+  - {type: input, id: url, attributes: {label: Product link}, validations: {required: true}}
+  - {type: textarea, id: built, attributes: {label: What was built}, validations: {required: true}}
+  - {type: input, id: tools, attributes: {label: Tools used (Lovable, Bolt, Cursor, v0, Claude, Grok...)}, validations: {required: true}}
+  - {type: input, id: time, attributes: {label: Time to build}}
+  - {type: textarea, id: results, attributes: {label: Results (MRR / users / revenue)}}
+  - {type: input, id: source, attributes: {label: Public source URL for the results}, validations: {required: true}}
+  - {type: textarea, id: steal, attributes: {label: Prompt / workflow others can steal}}
