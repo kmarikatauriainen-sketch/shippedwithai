@@ -6,7 +6,7 @@ const CFG={buttondownUser:'mrrwithai', // TODO: set to your Buttondown username
  repo:'https://github.com/kmarikatauriainen-sketch/shippedwithai'};
 const rd=f=>JSON.parse(fs.readFileSync(path.join(__dirname,'data',f)));
 const cases=rd('cases.json').sort((a,b)=>b.date.localeCompare(a.date)),cats=rd('categories.json'),tools=rd('tools.json'),issues=rd('newsletter.json');
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&','<':'<','>':'>','"':'"'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'\x26amp;','<':'\x26lt;','>':'\x26gt;','"':'\x26quot;'}[c]));
 const out='dist';fs.rmSync(out,{recursive:true,force:true});
 const urls=[];
 function write(p,html){const f=path.join(out,p,'index.html');fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,html);urls.push(SITE+p);}
