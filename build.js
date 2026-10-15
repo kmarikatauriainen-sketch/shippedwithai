@@ -1,12 +1,12 @@
-// Zero-dependency static site generator for ShippedWithAI. Run: node build.js -> dist/
+// Zero-dependency static site generator for MRRwithAI. Run: node build.js -> dist/
 const fs=require('fs'),path=require('path');
-const SITE='https://shippedwithai.com',NAME='ShippedWithAI';
-const CFG={buttondownUser:'shippedwithai', // TODO: set to your Buttondown username
+const SITE='https://mrrwithai.com',NAME='MRRwithAI';
+const CFG={buttondownUser:'mrrwithai', // TODO: set to your Buttondown username
  stripe:{newsletter:'#TODO-stripe-newsletter',featured:'#TODO-stripe-featured',bundle:'#TODO-stripe-bundle'},
  repo:'https://github.com/kmarikatauriainen-sketch/shippedwithai'};
 const rd=f=>JSON.parse(fs.readFileSync(path.join(__dirname,'data',f)));
 const cases=rd('cases.json').sort((a,b)=>b.date.localeCompare(a.date)),cats=rd('categories.json'),tools=rd('tools.json'),issues=rd('newsletter.json');
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&','<':'<','>':'>','"':'"'}[c]));
 const out='dist';fs.rmSync(out,{recursive:true,force:true});
 const urls=[];
 function write(p,html){const f=path.join(out,p,'index.html');fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,html);urls.push(SITE+p);}
@@ -27,7 +27,7 @@ const orgLd={'@context':'https://schema.org','@type':'WebSite',name:NAME,url:SIT
 write('/',page('/',{desc:'Real micro-SaaS and apps built with Lovable, Bolt, Cursor, v0, Claude and Grok — with sourced revenue numbers and the workflow to copy.',ld:[orgLd],body:
 `<section class="hero"><h1>Real products shipped with AI.</h1><p>A curated directory of micro-SaaS and apps built with Lovable, Bolt, Cursor, Claude, Replit and friends — with <strong>sourced</strong> revenue numbers and the prompt or workflow you can steal.</p></section>
 ${signup}
-<aside class="sponsor"><small>SPONSOR</small><p><strong>Your product here.</strong> Reach indie builders shipping with AI. <a href="/sponsor/">Sponsor ShippedWithAI →</a></p></aside>
+<aside class="sponsor"><small>SPONSOR</small><p><strong>Your product here.</strong> Reach indie builders shipping with AI. <a href="/sponsor/">Sponsor MRRwithAI →</a></p></aside>
 <h2>Latest cases</h2><div class="grid">${cases.map(card).join('')}</div>`}));
 // cases
 for(const c of cases){const ld={'@context':'https://schema.org','@type':'Article',headline:`${c.name}: built with ${c.tools.map(t=>tools[t]).join(', ')}`,description:c.built,datePublished:c.date,author:{'@type':'Organization',name:NAME},about:{'@type':'SoftwareApplication',name:c.name,url:c.productUrl||undefined,applicationCategory:cats[c.category]},citation:c.sourceUrl};
@@ -44,14 +44,14 @@ write(`/${base}/${s}/`,page(`/${base}/${s}/`,{title:base==='tools'?`Products bui
 tax('category',cats,c=>[c.category],'Categories');tax('tools',tools,c=>c.tools,'Tools');
 // submit
 const issueUrl=`${CFG.repo}/issues/new?template=submit-case.yml`;
-write('/submit/',page('/submit/',{title:'Submit a case',desc:'Built something with AI that makes money? Submit it to ShippedWithAI.',body:`<h1>Submit a case</h1><p>Built (or know of) a product made with AI tools that has <strong>public</strong> numbers? Submit it — free. We only list metrics that link to a public source (a post, interview, dashboard screenshot or article).</p>
+write('/submit/',page('/submit/',{title:'Submit a case',desc:'Built something with AI that makes money? Submit it to MRRwithAI.',body:`<h1>Submit a case</h1><p>Built (or know of) a product made with AI tools that has <strong>public</strong> numbers? Submit it — free. We only list metrics that link to a public source (a post, interview, dashboard screenshot or article).</p>
 <p><a class="btn" href="${issueUrl}">Submit via GitHub (free form) →</a></p><p>We need: product name & link, what it does, tools used, time to build, results (MRR/users/revenue), a public source URL for those results, and the prompt/workflow others can learn from.</p>`}));
 // sponsor
 const tier=(n,p,d,k)=>`<div class="tier"><h3>${n}</h3><p class="price">${p}</p><p>${d}</p><a class="btn" href="${CFG.stripe[k]}">Book</a></div>`;
-write('/sponsor/',page('/sponsor/',{title:'Sponsor',desc:'Reach indie hackers and builders shipping with AI. Newsletter slots and featured listings.',body:`<h1>Sponsor ShippedWithAI</h1><p>Our readers are founders, indie hackers and no-code builders actively shipping with AI tools.</p><div class="tiers">
+write('/sponsor/',page('/sponsor/',{title:'Sponsor',desc:'Reach indie hackers and builders shipping with AI. Newsletter slots and featured listings.',body:`<h1>Sponsor MRRwithAI</h1><p>Our readers are founders, indie hackers and no-code builders actively shipping with AI tools.</p><div class="tiers">
 ${tier('Newsletter slot','$99 / issue','One sponsor block at the top of a weekly issue.','newsletter')}${tier('Featured listing','$149 / month','Pinned sponsor slot on the homepage and every case page for 30 days.','featured')}${tier('Bundle','$249','Featured listing for a month + one newsletter slot.','bundle')}</div><p><small>Payment links coming soon. Questions? Open an issue on <a href="${CFG.repo}">GitHub</a>.</small></p>`}));
 // newsletter
-write('/newsletter/',page('/newsletter/',{title:'Newsletter archive',desc:'Archive of the ShippedWithAI weekly newsletter.',body:`<h1>Newsletter archive</h1>${issues.length?`<ul class="list">${issues.map(i=>`<li><a href="${esc(i.url)}">${esc(i.title)}</a> — ${esc(i.date)}</li>`).join('')}</ul>`:'<p>The first issue is on its way. Subscribe to get it.</p>'}${signup}`}));
+write('/newsletter/',page('/newsletter/',{title:'Newsletter archive',desc:'Archive of the MRRwithAI weekly newsletter.',body:`<h1>Newsletter archive</h1>${issues.length?`<ul class="list">${issues.map(i=>`<li><a href="${esc(i.url)}">${esc(i.title)}</a> — ${esc(i.date)}</li>`).join('')}</ul>`:'<p>The first issue is on its way. Subscribe to get it.</p>'}${signup}`}));
 // static + seo files
 fs.cpSync('static',out,{recursive:true});
 fs.writeFileSync(`${out}/robots.txt`,`User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
