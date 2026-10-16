@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path');
 const SITE='https://mrrwithai.com',NAME='MRRwithAI';
 const CFG={buttondownUser:'mrrwithai', // TODO: set to your Buttondown username
- stripe:{newsletter:'#TODO-stripe-newsletter',featured:'#TODO-stripe-featured',bundle:'#TODO-stripe-bundle'},
+stripe:{newsletter:'https://buy.stripe.com/9B6dRb8YYeOqfZr54Y0kE02',featured:'https://buy.stripe.com/3cI6oJfnm6hUcNfapi0kE01',bundle:'https://buy.stripe.com/7sY3cx7UUbCe4gJgNG0kE00'},
  repo:'https://github.com/kmarikatauriainen-sketch/shippedwithai'};
 const rd=f=>JSON.parse(fs.readFileSync(path.join(__dirname,'data',f)));
 const cases=rd('cases.json').sort((a,b)=>b.date.localeCompare(a.date)),cats=rd('categories.json'),tools=rd('tools.json'),issues=rd('newsletter.json');
