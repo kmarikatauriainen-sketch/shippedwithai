@@ -1,6 +1,7 @@
 // Zero-dependency static site generator for MRRwithAI. Run: node build.js -> dist/
 const fs=require('fs'),path=require('path');
 const SITE='https://mrrwithai.com',NAME='MRRwithAI';
+const BUILD=new Date().toISOString().slice(0,10);
 const CFG={buttondownUser:'mrrwithai', // TODO: set to your Buttondown username
 stripe:{newsletter:'https://buy.stripe.com/9B6dRb8YYeOqfZr54Y0kE02',featured:'https://buy.stripe.com/3cI6oJfnm6hUcNfapi0kE01',bundle:'https://buy.stripe.com/7sY3cx7UUbCe4gJgNG0kE00'},
  repo:'https://github.com/kmarikatauriainen-sketch/shippedwithai'};
@@ -9,35 +10,44 @@ const cases=rd('cases.json').sort((a,b)=>b.date.localeCompare(a.date)),cats=rd('
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'\x26amp;','<':'\x26lt;','>':'\x26gt;','"':'\x26quot;'}[c]));
 const out='dist';fs.rmSync(out,{recursive:true,force:true});
 const urls=[];
-function write(p,html){const f=path.join(out,p,'index.html');fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,html);urls.push(SITE+p);}
-function page(p,{title,desc,body,ld}){const t=title?`${title} · ${NAME}`:`${NAME} — real micro-SaaS built with AI`;
+function write(p,html,lastmod){const f=path.join(out,p,'index.html');fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,html);urls.push({loc:SITE+p,lastmod:lastmod||BUILD});}
+function page(p,{title,desc,body,ld,type,robots}){const t=title?`${title} · ${NAME}`:`${NAME} — real micro-SaaS built with AI`;
 return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(t)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${SITE}${p}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="${NAME}"><meta property="og:title" content="${esc(t)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${SITE}${p}"><meta property="og:image" content="${SITE}/og.svg">
-<meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/style.css">
+<title>${esc(t)}</title><meta name="description" content="${esc(desc)}">${robots?`<meta name="robots" content="${esc(robots)}">`:''}<link rel="canonical" href="${SITE}${p}">
+<meta property="og:type" content="${type||'website'}"><meta property="og:site_name" content="${NAME}"><meta property="og:title" content="${esc(t)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${SITE}${p}"><meta property="og:image" content="${SITE}/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(t)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${SITE}/og.png"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/style.css">
 ${(ld||[]).map(x=>`<script type="application/ld+json">${JSON.stringify(x)}</script>`).join('')}
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script><script defer src="/_vercel/insights/script.js"></script>
 </head><body><header><a class="logo" href="/">MRR<span>with</span>AI</a><nav><a href="/category/">Categories</a><a href="/tools/">Tools</a><a href="/newsletter/">Newsletter</a><a href="/submit/">Submit</a><a href="/sponsor/">Sponsor</a></nav></header>
-<main>${body}</main><footer><p>${NAME} — a hand-curated directory of real products built with AI tools. Every metric links to its public source; figures are as reported by founders or the press and are not independently audited.</p><p><a href="/llms.txt">llms.txt</a> · <a href="/sitemap.xml">sitemap</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="${CFG.repo}">GitHub</a></p></footer></body></html>`;}
+<main>${body}</main><footer><p>${NAME} — a hand-curated directory of real products built with AI tools. Every metric links to its public source; figures are as reported by founders or the press and are not independently audited.</p><p><a href="/llms.txt">llms.txt</a> · <a href="/llms-full.txt">llms-full.txt</a> · <a href="/sitemap.xml">sitemap</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="${CFG.repo}">GitHub</a></p></footer></body></html>`;}
 const tl=s=>`<a class="tag" href="/tools/${s}/">${esc(tools[s]||s)}</a>`;
 const card=c=>`<article class="card"><h3><a href="/cases/${c.slug}/">${esc(c.name)}</a></h3><p>${esc(c.built)}</p><p class="res">${esc(c.results)}</p><p>${c.tools.map(tl).join(' ')} <a class="tag cat" href="/category/${c.category}/">${esc(cats[c.category])}</a></p></article>`;
 const signup=`<section class="signup"><h2>Get one real AI-built case study a week</h2><p>Free. Numbers with sources, plus the prompt/workflow to steal.</p>
 <form action="https://buttondown.com/api/emails/embed-subscribe/${CFG.buttondownUser}" method="post" target="_blank"><input type="email" name="email" placeholder="you@example.com" required aria-label="Email"><input type="hidden" name="tag" value="website"><button>Subscribe</button></form></section>`;
-const orgLd={'@context':'https://schema.org','@type':'WebSite',name:NAME,url:SITE};
+function cite(c){const o={'@type':'CreativeWork',url:c.sourceUrl};let host='';try{host=new URL(c.sourceUrl).hostname.replace(/^www\./,'');}catch{}
+const name=c.sourceName||{'starterstory.com':'Starter Story','x.com':'X','lovable.dev':'Lovable','small-start.com':'Small Start'}[host];if(name)o.name=name;return o;}
+function related(c){const others=cases.filter(x=>x.slug!==c.slug);const hit=others.filter(x=>x.category===c.category||x.tools.some(t=>c.tools.includes(t)));return [...hit,...others.filter(x=>!hit.includes(x))].slice(0,4);}
+const HOME_DESC='Real micro-SaaS and apps built with Lovable, Bolt, Cursor, v0, Claude and Grok — with sourced revenue numbers and the workflow to copy.';
+const publisher={'@type':'Organization',name:NAME,url:SITE,logo:{'@type':'ImageObject',url:`${SITE}/og.png`}};
+const orgLd={'@context':'https://schema.org','@type':'Organization',name:NAME,url:SITE,logo:`${SITE}/og.png`,email:'mrrwithai@gmail.com',sameAs:[CFG.repo]};
+const siteLd={'@context':'https://schema.org','@type':'WebSite',name:NAME,url:SITE,description:HOME_DESC,publisher:{'@type':'Organization',name:NAME,url:SITE}};
+const homeList={'@context':'https://schema.org','@type':'ItemList',itemListElement:cases.map((c,i)=>({'@type':'ListItem',position:i+1,url:`${SITE}/cases/${c.slug}/`,name:c.name}))};
 // home
-write('/',page('/',{desc:'Real micro-SaaS and apps built with Lovable, Bolt, Cursor, v0, Claude and Grok — with sourced revenue numbers and the workflow to copy.',ld:[orgLd],body:
+write('/',page('/',{desc:HOME_DESC,ld:[orgLd,siteLd,homeList],body:
 `<section class="hero"><h1>Real products shipped with AI.</h1><p>A curated directory of micro-SaaS and apps built with Lovable, Bolt, Cursor, Claude, Replit and friends — with <strong>sourced</strong> revenue numbers and the prompt or workflow you can steal.</p></section>
 ${signup}
 <aside class="sponsor"><small>SPONSOR</small><p><strong>Your product here.</strong> Reach indie builders shipping with AI. <a href="/sponsor/">Sponsor MRRwithAI →</a></p></aside>
 <h2>Latest cases</h2><div class="grid">${cases.map(card).join('')}</div>`}));
 // cases
-for(const c of cases){const ld={'@context':'https://schema.org','@type':'Article',headline:`${c.name}: built with ${c.tools.map(t=>tools[t]).join(', ')}`,description:c.built,datePublished:c.date,author:{'@type':'Organization',name:NAME},about:{'@type':'SoftwareApplication',name:c.name,url:c.productUrl||undefined,applicationCategory:cats[c.category]},citation:c.sourceUrl};
-write(`/cases/${c.slug}/`,page(`/cases/${c.slug}/`,{title:`${c.name} — built with ${c.tools.map(t=>tools[t]).join(', ')}`,desc:`${c.name}: ${c.built} ${c.results}`,ld:[ld,{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:SITE+'/'},{'@type':'ListItem',position:2,name:c.name,item:`${SITE}/cases/${c.slug}/`}]}],body:
-`<article class="case"><p><a href="/category/${c.category}/">${esc(cats[c.category])}</a></p><h1>${esc(c.name)}</h1>${c.builder?`<p class="by">by ${esc(c.builder)}</p>`:''}
+for(const c of cases){const url=`${SITE}/cases/${c.slug}/`;const ld={'@context':'https://schema.org','@type':'Article',headline:`${c.name}: built with ${c.tools.map(t=>tools[t]).join(', ')}`,description:c.built,datePublished:c.date,dateModified:BUILD,url,mainEntityOfPage:url,author:{'@type':'Organization',name:NAME},publisher,about:{'@type':'SoftwareApplication',name:c.name,url:c.productUrl||undefined,applicationCategory:cats[c.category]},citation:cite(c)};
+write(`/cases/${c.slug}/`,page(`/cases/${c.slug}/`,{title:`${c.name} — built with ${c.tools.map(t=>tools[t]).join(', ')}`,desc:`${c.name}: ${c.built} ${c.results}`,type:'article',ld:[ld,{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:SITE+'/'},{'@type':'ListItem',position:2,name:cats[c.category],item:`${SITE}/category/${c.category}/`},{'@type':'ListItem',position:3,name:c.name,item:url}]}],body:
+`<article class="case"><p><a href="/category/${c.category}/">${esc(cats[c.category])}</a></p><h1>${esc(c.name)}</h1><p class="by">Published <time datetime="${c.date}">${esc(c.date)}</time> · Last checked <time datetime="${BUILD}">${BUILD}</time></p>${c.builder?`<p class="by">by ${esc(c.builder)}</p>`:''}
 <dl><dt>What was built</dt><dd>${esc(c.built)}</dd><dt>Tools used</dt><dd>${c.tools.map(tl).join(' ')}</dd>${c.timeToBuild?`<dt>Time to build</dt><dd>${esc(c.timeToBuild)}</dd>`:''}
 <dt>Reported results</dt><dd>${esc(c.results)} <a href="${esc(c.sourceUrl)}" rel="nofollow noopener" target="_blank">Source ↗</a></dd>
 ${c.productUrl?`<dt>Product</dt><dd><a href="${esc(c.productUrl)}" rel="noopener" target="_blank">${esc(c.productUrl.replace(/^https?:\/\//,''))} ↗</a></dd>`:''}</dl>
-<section class="steal"><h2>Steal this workflow</h2><p>${esc(c.steal)}</p></section></article>${signup}`}));}
+<section class="steal"><h2>Steal this workflow</h2><p>${esc(c.steal)}</p></section>
+<h2>Sources</h2><p><a href="${esc(c.sourceUrl)}" rel="nofollow noopener" target="_blank">${esc(c.sourceUrl)}</a></p>
+<h2>Related cases</h2><ul class="list">${related(c).map(r=>`<li><a href="/cases/${r.slug}/">${esc(r.name)}</a></li>`).join('')}</ul></article>${signup}`}),c.date);}
 // taxonomy
 function tax(base,map,key,label){write(`/${base}/`,page(`/${base}/`,{title:label,desc:`Browse AI-built products by ${label.toLowerCase()}.`,body:`<h1>${label}</h1><ul class="list">${Object.entries(map).map(([s,n])=>{const k=cases.filter(c=>key(c).includes(s)).length;return k?`<li><a href="/${base}/${s}/">${esc(n)}</a> (${k})</li>`:''}).join('')}</ul>`}));
 for(const [s,n] of Object.entries(map)){const list=cases.filter(c=>key(c).includes(s));if(!list.length)continue;
@@ -55,8 +65,10 @@ ${tier('Newsletter slot','$99 / issue','One sponsor block at the top of a weekly
 write('/newsletter/',page('/newsletter/',{title:'Newsletter archive',desc:'Archive of the MRRwithAI weekly newsletter.',body:`<h1>Newsletter archive</h1>${issues.length?`<ul class="list">${issues.map(i=>`<li><a href="${esc(i.url)}">${esc(i.title)}</a> — ${esc(i.date)}</li>`).join('')}</ul>`:'<p>The first issue is on its way. Subscribe to get it.</p>'}${signup}`}));
 // static + seo files
 fs.cpSync('static',out,{recursive:true});
+fs.writeFileSync(`${out}/404.html`,page('/404.html',{title:'Page not found',desc:'That page does not exist.',robots:'noindex',body:`<h1>Page not found</h1><p><a href="/">Home</a></p><h2>Latest cases</h2><ul class="list">${cases.slice(0,6).map(c=>`<li><a href="/cases/${c.slug}/">${esc(c.name)}</a></li>`).join('')}</ul>`}));
 fs.writeFileSync(`${out}/robots.txt`,`User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
-urls.push(`${SITE}/privacy/`,`${SITE}/terms/`);
-fs.writeFileSync(`${out}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`<url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
-fs.writeFileSync(`${out}/llms.txt`,`# ${NAME}\n\n> A curated directory and newsletter of real micro-SaaS and apps built with AI tools (Lovable, Bolt, Cursor, v0, Claude, Grok, Replit). Each case lists tools used, time to build, publicly sourced results and a reusable workflow.\n\n## Cases\n${cases.map(c=>`- [${c.name}](${SITE}/cases/${c.slug}/): ${c.results} Source: ${c.sourceUrl}`).join('\n')}\n\n## Pages\n- [Submit a case](${SITE}/submit/)\n- [Sponsor](${SITE}/sponsor/)\n- [Newsletter](${SITE}/newsletter/)\n- [Privacy](${SITE}/privacy/)\n- [Terms](${SITE}/terms/)\n`);
+urls.push({loc:`${SITE}/privacy/`,lastmod:BUILD},{loc:`${SITE}/terms/`,lastmod:BUILD});
+fs.writeFileSync(`${out}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`<url><loc>${u.loc}</loc><lastmod>${u.lastmod}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+fs.writeFileSync(`${out}/llms.txt`,`# ${NAME}\n\n> A curated directory and newsletter of real micro-SaaS and apps built with AI tools (Lovable, Bolt, Cursor, v0, Claude, Grok, Replit). Each case lists tools used, time to build, publicly sourced results and a reusable workflow.\n\nFull content: ${SITE}/llms-full.txt\n\n## Cases\n${cases.map(c=>`- [${c.name}](${SITE}/cases/${c.slug}/): ${c.results} Source: ${c.sourceUrl}`).join('\n')}\n\n## Pages\n- [Submit a case](${SITE}/submit/)\n- [Sponsor](${SITE}/sponsor/)\n- [Newsletter](${SITE}/newsletter/)\n- [Privacy](${SITE}/privacy/)\n- [Terms](${SITE}/terms/)\n`);
+fs.writeFileSync(`${out}/llms-full.txt`,cases.map(c=>[`## ${c.name}`,`URL: ${SITE}/cases/${c.slug}/`,`What was built: ${c.built}`,`Tools: ${c.tools.map(t=>tools[t]||t).join(', ')}`,`Time to build: ${c.timeToBuild||'not reported'}`,`Reported results: ${c.results}`,`Source: ${c.sourceUrl}`,`Published: ${c.date}`,`Workflow: ${c.steal}`].join('\n')).join('\n\n')+'\n');
 console.log('built',urls.length,'pages');
