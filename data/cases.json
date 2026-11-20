@@ -1,1 +1,17 @@
-PLACEHOLDER
+[
+  {
+    "slug": "slotbound",
+    "name": "Slotbound",
+    "built": "A roguelite auto-battler where a 3x3 slot machine summons your army, made by a solo first-time developer with no prior coding experience.",
+    "results": "Dashboard shown $356,028 in gross Steam revenue ($313,764 net) and 50,221 Steam units in its first 48 hours; developer later posted nearly $1.33M gross in the first week and 100,000+ copies sold (self-reported on X, Nov 2026).",
+    "tools": ["cursor", "codex", "claude", "chatgpt"],
+    "category": "games",
+    "date": "2026-11-20",
+    "sourceUrl": "https://x.com/OptimaArchGames/status/2121818614571622489",
+    "sourceName": "X (OptimaArch)",
+    "productUrl": "https://store.steampowered.com/app/4459590/Slotbound/",
+    "steal": "Build the full game loop with AI coding tools while you focus on design, balance and polish. Ship a polished demo early for wishlists, then iterate on player feedback after launch. One solo non-coder did the entire code and most assets with Cursor, Codex, Claude and ChatGPT.",
+    "builder": "Optima Arch",
+    "timeToBuild": "about one year, solo"
+  }
+]
