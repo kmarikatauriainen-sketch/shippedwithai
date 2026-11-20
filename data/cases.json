@@ -1,5 +1,20 @@
 [
   {
+    "slug": "brawler",
+    "name": "Brawler",
+    "built": "An AI boxing coach app for iPhone that analyses shadowboxing, bag work and sparring footage, scores technique, and builds personalized training plans.",
+    "results": "Verified $54,280 in the last 30 days, $28,249 MRR from 5,406 active subscriptions and $208,514 all-time, RevenueCat-verified (TrustMRR, updated Nov 20, 2026).",
+    "tools": ["cursor"],
+    "category": "health-fitness",
+    "date": "2026-11-20",
+    "sourceUrl": "https://trustmrr.com/startup/brawler",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://apps.apple.com/app/brawler-ai-boxing-coach",
+    "steal": "Ship a niche sports-coaching app with an AI video analyser. Use Meta ads + creator posts for distribution. Offer a discounted annual plan to boost cash flow while keeping MRR growing. Revenue is fully verified via RevenueCat on TrustMRR.",
+    "builder": "George Lampropoulos",
+    "timeToBuild": "a few months"
+  },
+  {
     "slug": "slotbound",
     "name": "Slotbound",
     "built": "A roguelite auto-battler where a 3x3 slot machine summons your army, made by a solo first-time developer with no prior coding experience.",
