@@ -28,5 +28,20 @@
     "steal": "Build the full game loop with AI coding tools while you focus on design, balance and polish. Ship a polished demo early for wishlists, then iterate on player feedback after launch. One solo non-coder did the entire code and most assets with Cursor, Codex, Claude and ChatGPT.",
     "builder": "Optima Arch",
     "timeToBuild": "about one year, solo"
+  },
+  {
+    "slug": "storyshort",
+    "name": "StoryShort",
+    "built": "AI tool that generates faceless short videos for TikTok, YouTube and Instagram from a text prompt: script, scenes, consistent characters, voice, captions and auto-posting.",
+    "results": "Verified $22,701 MRR from 382 active subscriptions, $21,646 last 30 days and $614,586 all-time, Stripe-verified (TrustMRR, updated Nov 22, 2026).",
+    "tools": ["claude"],
+    "category": "content-creation",
+    "date": "2026-11-22",
+    "sourceUrl": "https://trustmrr.com/startup/storyshort",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://storyshort.ai",
+    "steal": "Copy a proven faceless video format, validate with ads, then use Claude Code for rapid feature development. Solo founder (ex-optician) runs it with AI handling most of the coding. Listed for sale on TrustMRR.",
+    "builder": "Samuel Rondot",
+    "timeToBuild": "solo, ongoing with Claude Code"
   }
 ]
