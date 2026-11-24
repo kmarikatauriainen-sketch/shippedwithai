@@ -43,5 +43,50 @@
     "steal": "Copy a proven faceless video format, validate with ads, then use Claude Code for rapid feature development. Solo founder (ex-optician) runs it with AI handling most of the coding. Listed for sale on TrustMRR.",
     "builder": "Samuel Rondot",
     "timeToBuild": "solo, ongoing with Claude Code"
+  },
+  {
+    "slug": "getebook-ai",
+    "name": "GETebook.ai",
+    "built": "AI tool that turns an idea into a publish-ready ebook with structured outline, full chapters, cover art and exports to PDF, EPUB and Word.",
+    "results": "Verified $12,026 MRR from 252 active subscriptions, $31,157 last 30 days and $177,729 all-time, Stripe-verified (TrustMRR, updated Nov 23, 2026).",
+    "tools": ["claude", "lovable"],
+    "category": "content-creation",
+    "date": "2026-11-23",
+    "sourceUrl": "https://trustmrr.com/startup/getebook-ai",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://getebook.ai",
+    "steal": "Solo non-technical founder built first version with Lovable, then rebuilt with Claude Code. Grew heavily with Meta ads ($20-30k/mo spend) plus content. Plans from $29/mo. Showed $130k+ total revenue in under 4 months on Starter Story.",
+    "builder": "Bogdan Dragomir",
+    "timeToBuild": "started Jul 2025, solo"
+  },
+  {
+    "slug": "vugola",
+    "name": "Vugola",
+    "built": "AI video editing agent that turns long-form videos into short, captioned viral clips for creators, clippers, agencies and brands.",
+    "results": "Self-reported ~$11,200 MRR in the last 4 weeks, ~400 paying users and 10k+ signups (Starter Story interview Oct 11, 2026; founder showed dashboard on camera).",
+    "tools": ["lovable", "claude", "codex"],
+    "category": "content-creation",
+    "date": "2026-10-11",
+    "sourceUrl": "https://www.starterstory.com/stories/i-m-19-and-i-built-this-11k-month-saas",
+    "sourceName": "Starter Story",
+    "productUrl": "https://www.vugolaai.com/",
+    "steal": "19-year-old no-coder started on Lovable for 4 months, then moved to Claude and Codex. Growth: personal brand on X then daily Instagram UGC by copying proven viral formats (45 min/day) + ManyChat ($15/mo). Zero ad spend. Hit $11k MRR in ~5 months.",
+    "builder": "Vadim Strizheus",
+    "timeToBuild": "~5 months, solo no-coder"
+  },
+  {
+    "slug": "kolbo-ai",
+    "name": "Kolbo.AI",
+    "built": "All-in-one AI creative platform that brings 100+ models (image, video, music, voice, chat) into one workspace with character consistency and credit pool.",
+    "results": "Verified $49,745 MRR from 755 active subscriptions, $123,537 last 30 days and $460,080 all-time, Stripe-verified (TrustMRR, updated Nov 23, 2026).",
+    "tools": ["lovable", "cursor", "claude"],
+    "category": "content-creation",
+    "date": "2026-11-23",
+    "sourceUrl": "https://trustmrr.com/startup/kolbo-ai",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://kolbo.ai",
+    "steal": "Founder with zero coding skills fired previous developers and built 80% with Lovable, then continued with Cursor and Claude Code. Solo operator, bootstrapped from Jan 2025. Winner of Lovable weekend contest. One subscription for many models instead of juggling tools.",
+    "builder": "Zohar Vanunu",
+    "timeToBuild": "started Jan 2025, mostly solo after firing devs"
   }
 ]
