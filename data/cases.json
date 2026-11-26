@@ -88,5 +88,50 @@
     "steal": "Founder with zero coding skills fired previous developers and built 80% with Lovable, then continued with Cursor and Claude Code. Solo operator, bootstrapped from Jan 2025. Winner of Lovable weekend contest. One subscription for many models instead of juggling tools.",
     "builder": "Zohar Vanunu",
     "timeToBuild": "started Jan 2025, mostly solo after firing devs"
+  },
+  {
+    "slug": "abmaxx",
+    "name": "AbMaxx",
+    "built": "AI abs coach iOS app that analyses a photo of the user's abs, scores physique and builds a personalized training plan with an AI coach.",
+    "results": "Verified $44,458 in the last 30 days, $23,597 MRR from 6,692 active subscriptions and $222,317 all-time, RevenueCat-verified (TrustMRR, updated Nov 25, 2026).",
+    "tools": ["lovable"],
+    "category": "health-fitness",
+    "date": "2026-11-25",
+    "sourceUrl": "https://trustmrr.com/startup/abmaxx",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://apps.apple.com/app/id6757769125",
+    "steal": "18-year-old no-coder prototyped in Lovable for 2 months, then rebuilt before launch. Grew with Meta and TikTok ads (2-5x ROAS) after influencer deals underperformed. Narrow focus on one muscle group + photo scan as the hook. Listed for sale on TrustMRR.",
+    "builder": "Lino",
+    "timeToBuild": "~3 months, solo no-coder"
+  },
+  {
+    "slug": "post-bridge",
+    "name": "Post Bridge",
+    "built": "Social media scheduler that lets you upload a post or short video once and publish it to multiple platforms (Instagram, TikTok, YouTube, X, LinkedIn etc.) from one dashboard. Includes API, CLI and MCP server for AI agents.",
+    "results": "Verified $45,846 in the last 30 days, $49,462 MRR from 1,618 active subscriptions and $601,823 all-time, Stripe-verified (TrustMRR, updated Nov 25, 2026).",
+    "tools": ["cursor"],
+    "category": "creator-tools",
+    "date": "2026-11-25",
+    "sourceUrl": "https://trustmrr.com/startup/post-bridge",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://post-bridge.com",
+    "steal": "Built for the founder's own need of cross-posting short-form video. Documented the process on X (building in public). Later added MCP so AI agents can post via ChatGPT/Claude. Pricing: $39 and $99/mo. Solo operator.",
+    "builder": "Jack Friks",
+    "timeToBuild": "solo, started Sep 2024"
+  },
+  {
+    "slug": "visualizee-ai",
+    "name": "Visualizee.ai",
+    "built": "AI rendering tool for architects and designers that turns sketches, photos and 3D model screenshots into photoreal renders via a chat assistant (Vizzy).",
+    "results": "Verified $8,401 in the last 30 days, $7,324 MRR from 275 active subscriptions and $101,438 all-time, Stripe-verified (TrustMRR, updated Nov 25, 2026).",
+    "tools": ["cursor", "claude-code"],
+    "category": "b2b-saas",
+    "date": "2026-11-25",
+    "sourceUrl": "https://trustmrr.com/startup/visualizee-ai",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://visualizee.ai",
+    "steal": "Experienced developer rebuilt a complex node editor into a simple chat interface after years of low revenue. Switched to monthly plans + SEO. Now offers MCP so Claude/Cursor can render directly. Solo, bootstrapped side project.",
+    "builder": "Piotr Obidowski",
+    "timeToBuild": "launched 2023, pivot 2026"
   }
 ]
