@@ -133,5 +133,50 @@
     "steal": "Experienced developer rebuilt a complex node editor into a simple chat interface after years of low revenue. Switched to monthly plans + SEO. Now offers MCP so Claude/Cursor can render directly. Solo, bootstrapped side project.",
     "builder": "Piotr Obidowski",
     "timeToBuild": "launched 2023, pivot 2026"
+  },
+  {
+    "slug": "dropmagic",
+    "name": "Dropmagic",
+    "built": "AI-powered Shopify store builder that turns any product URL into a fully branded, high-converting dropshipping store in about five minutes.",
+    "results": "Self-reported $120K MRR (founder on X, Oct 6, 2026); earlier $117K MRR announced Apr 2026 and over $45K MRR within first four months (Starter Story, Nov 2025). Multiple public founder posts corroborate the trajectory.",
+    "tools": ["cursor", "claude"],
+    "category": "b2b-saas",
+    "date": "2026-10-06",
+    "sourceUrl": "https://shippedandpaid.com/cases/dropmagic-ai-ecommerce-store-builder-120k-mrr-cursor-claude-code/",
+    "sourceName": "Shipped & Paid (X post)",
+    "productUrl": "https://dropmagic.ai",
+    "steal": "Experienced founder (previously scaled Minea to $750K MRR) used Cursor + Claude Code for rapid iteration. Growth driven by YouTube creators and affiliates rather than pure product. Pricing $79/mo unlimited. Focus on time-to-first-sale and customer success after early plateaus.",
+    "builder": "Loïc Berthelot",
+    "timeToBuild": "v1 ~1 year, v2 with AI in ~1 month"
+  },
+  {
+    "slug": "launchfast",
+    "name": "LaunchFast",
+    "built": "AI Amazon product research tool (Chrome extension + dashboard) that helps private-label sellers find, validate and source products in minutes instead of weeks.",
+    "results": "Self-reported ~$21.8K MRR at day 90 (Starter Story interview Jan 5, 2026); founder later cited ~$30K MRR. Built 100% with Cursor in 48 hours by a non-technical founder.",
+    "tools": ["cursor"],
+    "category": "b2b-saas",
+    "date": "2026-01-05",
+    "sourceUrl": "https://www.starterstory.com/hassam",
+    "sourceName": "Starter Story",
+    "productUrl": "https://launchfast.today",
+    "steal": "Non-coder with deep domain expertise (Amazon FBA) validated distribution first by pitching a coaching company (LegacyX) with a large audience, then built the MVP in 48 hours with Cursor. Dual pricing: $50/mo for partner members, $199/mo public. Zero personal audience required at launch.",
+    "builder": "Hassam (Hasaam Bhatti)",
+    "timeToBuild": "48 hours for MVP, non-coder"
+  },
+  {
+    "slug": "trustmrr",
+    "name": "TrustMRR",
+    "built": "Public database of startup revenue verified via read-only Stripe/Paddle keys, later expanded into a marketplace for buying and selling verified-revenue businesses.",
+    "results": "Stripe-verified $36,835 in the last 30 days, $11,992 MRR from 8 active subscriptions and $431,469 all-time (TrustMRR self-listing, updated Nov 26, 2026). Founder reports ~$300K+ product revenue in first nine months plus acquisition fees.",
+    "tools": ["cursor"],
+    "category": "b2b-saas",
+    "date": "2026-11-26",
+    "sourceUrl": "https://trustmrr.com/startup/trustmrr",
+    "sourceName": "TrustMRR",
+    "productUrl": "https://trustmrr.com",
+    "steal": "Built in ~6–24 hours with Cursor after a viral complaint about fake MRR screenshots. Launched with sidebar ads that sold out fast ($299→$1,499/mo). Solo founder, no employees. Product itself became the proof of concept for verified revenue. Later added marketplace.",
+    "builder": "Marc Lou",
+    "timeToBuild": "~6–24 hours with Cursor"
   }
 ]
